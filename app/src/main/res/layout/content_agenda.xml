@@ -9,9 +9,11 @@
 	tools:context="com.liferay.events.AgendaActivity"
 	tools:showIn="@layout/app_bar_agenda">
 
-	<TextView
+	<com.liferay.mobile.screens.ddl.list.DDLListScreenlet
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:text="Agenda"/>
+		app:labelFields="Title,Subtitle"
+		app:recordSetId="79281"
+		app:layoutId="@layout/ddl_list_material"/>
 
 </RelativeLayout>
