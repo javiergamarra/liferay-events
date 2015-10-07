@@ -17,4 +17,9 @@
 		android:text="Hello World!"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"/>
+	<com.liferay.mobile.screens.auth.login.LoginScreenlet
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:basicAuthMethod="email"
+		app:layoutId="@layout/login_default"/>
 </RelativeLayout>
