@@ -9,9 +9,9 @@
 	tools:context="com.liferay.events.AgendaActivity"
 	tools:showIn="@layout/app_bar_agenda">
 
-	<TextView
+	<FrameLayout
+		android:id="@+id/main_fragment"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:text="Agenda"/>
+		android:layout_height="match_parent"/>
 
 </RelativeLayout>
