@@ -19,6 +19,7 @@
 		android:text="Hello World!"/>
 
 	<com.liferay.mobile.screens.auth.login.LoginScreenlet
+		android:id="@+id/login"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		app:basicAuthMethod="email"

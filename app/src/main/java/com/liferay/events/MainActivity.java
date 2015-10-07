@@ -5,11 +5,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import com.liferay.mobile.screens.auth.login.LoginListener;
+import com.liferay.mobile.screens.auth.login.LoginScreenlet;
+import com.liferay.mobile.screens.context.User;
+
+public class MainActivity extends AppCompatActivity implements LoginListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 					.setAction("Action", null).show();
 			}
 		});
+
+		LoginScreenlet loginScreenlet = (LoginScreenlet) findViewById(R.id.login);
+		loginScreenlet.setListener(this);
 	}
 
 	@Override
@@ -48,5 +55,19 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onLoginSuccess(User user) {
+		View view = findViewById(android.R.id.content);
+
+		Snackbar.make(view, "Login!", Snackbar.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void onLoginFailure(Exception e) {
+		View view = findViewById(android.R.id.content);
+
+		Snackbar.make(view, "Fail :(", Snackbar.LENGTH_LONG).show();
 	}
 }
