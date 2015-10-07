@@ -7,8 +7,9 @@
 
 	<com.liferay.mobile.screens.webcontentdisplay.WebContentDisplayScreenlet
 		app:articleId="79236"
-		app:offlinePolicy="CACHE_FIRST"
+		app:offlinePolicy="REMOTE_ONLY"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"/>
+		android:layout_height="match_parent"
+		app:layoutId="@layout/webcontent_events"/>
 
 </LinearLayout>
