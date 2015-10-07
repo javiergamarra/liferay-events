@@ -4,5 +4,13 @@
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent"
 			  android:orientation="vertical">
-	
+
+	<com.liferay.mobile.screens.ddl.form.DDLFormScreenlet
+		android:id="@+id/ddl_form"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layoutId="@layout/ddl_form_default"
+		app:recordSetId="79281"
+		app:structureId="79279"/>
+
 </LinearLayout>
