@@ -7,6 +7,7 @@
 
 	<com.liferay.mobile.screens.webcontentdisplay.WebContentDisplayScreenlet
 		app:articleId="79236"
+		app:offlinePolicy="CACHE_FIRST"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"/>
 
