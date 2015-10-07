@@ -13,6 +13,9 @@
 	tools:context="com.liferay.events.AgendaActivity"
 	tools:showIn="@layout/app_bar_agenda">
 
-
+	<com.liferay.mobile.screens.webcontentdisplay.WebContentDisplayScreenlet
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:articleId="79236"/>
 
 </RelativeLayout>
