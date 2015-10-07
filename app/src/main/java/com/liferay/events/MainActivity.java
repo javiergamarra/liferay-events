@@ -1,5 +1,6 @@
 package com.liferay.events;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -59,9 +60,7 @@ public class MainActivity extends AppCompatActivity implements LoginListener {
 
 	@Override
 	public void onLoginSuccess(User user) {
-		View view = findViewById(android.R.id.content);
-
-		Snackbar.make(view, "Login!", Snackbar.LENGTH_LONG).show();
+		startActivity(new Intent(this, AgendaActivity.class));
 	}
 
 	@Override
