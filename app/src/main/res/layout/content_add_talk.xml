@@ -9,8 +9,12 @@
 		android:id="@+id/ddl_form"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		app:layoutId="@layout/ddl_form_default"
+		app:checkboxFieldLayoutId="@layout/ddlfield_checkbox_material"
+		app:dateFieldLayoutId="@layout/ddlfield_date_material"
+		app:documentFieldLayoutId="@layout/ddlfield_document_material"
+		app:layoutId="@layout/ddl_form_material"
 		app:recordSetId="79281"
+		app:selectFieldLayoutId="@layout/ddlfield_select_material"
 		app:structureId="79279"/>
 
 </LinearLayout>
