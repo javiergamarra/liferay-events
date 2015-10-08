@@ -13,7 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class AgendaActivity extends AppCompatActivity
+import com.liferay.mobile.android.service.Session;
+import com.liferay.mobile.screens.context.SessionContext;
+import com.liferay.mobile.screens.push.PushScreensActivity;
+
+import org.json.JSONObject;
+
+public class AgendaActivity extends PushScreensActivity
 	implements NavigationView.OnNavigationItemSelectedListener {
 
 	@Override
@@ -42,6 +48,27 @@ public class AgendaActivity extends AppCompatActivity
 		navigationView.setNavigationItemSelectedListener(this);
 		navigationView.setCheckedItem(R.id.agenda);
 		navigationView.getMenu().performIdentifierAction(R.id.agenda, 0);
+	}
+
+	@Override
+	protected Session getDefaultSession() {
+		return SessionContext.createSessionFromCurrentSession();
+	}
+
+	@Override
+	protected void onPushNotificationReceived(JSONObject jsonObject) {
+		View view = findViewById(android.R.id.content);
+		Snackbar.make(view, jsonObject.toString(), Snackbar.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onErrorRegisteringPush(String message, Exception e) {
+
+	}
+
+	@Override
+	protected String getSenderId() {
+		return "733569701128";
 	}
 
 	@Override
