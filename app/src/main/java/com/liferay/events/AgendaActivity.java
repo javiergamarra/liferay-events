@@ -123,7 +123,7 @@ public class AgendaActivity extends PushScreensActivity
 	@Override
 	protected void onPushNotificationReceived(JSONObject jsonObject) {
 		View view = findViewById(android.R.id.content);
-		Snackbar.make(view, jsonObject.toString(), Snackbar.LENGTH_SHORT).show();
+		Snackbar.make(view, jsonObject.toString(), Snackbar.LENGTH_LONG).show();
 	}
 
 	@Override

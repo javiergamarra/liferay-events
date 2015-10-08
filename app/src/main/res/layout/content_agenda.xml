@@ -12,8 +12,9 @@
 	<com.liferay.mobile.screens.ddl.list.DDLListScreenlet
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		app:labelFields="Title,Subtitle"
-		app:layoutId="@layout/ddl_list_material"
+		app:labelFields="Title,Subtitle,Date"
+		app:offlinePolicy="REMOTE_ONLY"
+		app:layoutId="@layout/ddl_list_events"
 		app:recordSetId="79281"/>
 
 </RelativeLayout>
