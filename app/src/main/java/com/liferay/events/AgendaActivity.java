@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,27 +47,6 @@ public class AgendaActivity extends PushScreensActivity
 		navigationView.setNavigationItemSelectedListener(this);
 		navigationView.setCheckedItem(R.id.agenda);
 		navigationView.getMenu().performIdentifierAction(R.id.agenda, 0);
-	}
-
-	@Override
-	protected Session getDefaultSession() {
-		return SessionContext.createSessionFromCurrentSession();
-	}
-
-	@Override
-	protected void onPushNotificationReceived(JSONObject jsonObject) {
-		View view = findViewById(android.R.id.content);
-		Snackbar.make(view, jsonObject.toString(), Snackbar.LENGTH_SHORT).show();
-	}
-
-	@Override
-	protected void onErrorRegisteringPush(String message, Exception e) {
-
-	}
-
-	@Override
-	protected String getSenderId() {
-		return "733569701128";
 	}
 
 	@Override
@@ -135,6 +113,27 @@ public class AgendaActivity extends PushScreensActivity
 		item.setChecked(true);
 
 		return true;
+	}
+
+	@Override
+	protected Session getDefaultSession() {
+		return SessionContext.createSessionFromCurrentSession();
+	}
+
+	@Override
+	protected void onPushNotificationReceived(JSONObject jsonObject) {
+		View view = findViewById(android.R.id.content);
+		Snackbar.make(view, jsonObject.toString(), Snackbar.LENGTH_SHORT).show();
+	}
+
+	@Override
+	protected void onErrorRegisteringPush(String message, Exception e) {
+
+	}
+
+	@Override
+	protected String getSenderId() {
+		return "733569701128";
 	}
 
 }

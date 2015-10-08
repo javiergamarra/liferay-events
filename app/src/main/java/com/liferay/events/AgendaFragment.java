@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 /**
  * @author Javier Gamarra
  */
-public class AgendaFragment extends Fragment{
+public class AgendaFragment extends Fragment {
 
 	@Nullable
 	@Override
