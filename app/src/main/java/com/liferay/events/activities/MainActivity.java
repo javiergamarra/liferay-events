@@ -1,30 +1,39 @@
-package com.liferay.events;
+package com.liferay.events.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.liferay.events.R;
+import com.liferay.events.mainfragments.AddTalkFragment;
+import com.liferay.events.mainfragments.AgendaFragment;
+import com.liferay.events.mainfragments.LoginFragment;
+import com.liferay.events.mainfragments.SponsorsFragment;
 import com.liferay.mobile.android.service.Session;
+import com.liferay.mobile.screens.auth.BasicAuthMethod;
+import com.liferay.mobile.screens.auth.login.LoginListener;
+import com.liferay.mobile.screens.auth.login.interactor.LoginBasicInteractor;
 import com.liferay.mobile.screens.context.SessionContext;
+import com.liferay.mobile.screens.context.User;
 import com.liferay.mobile.screens.push.PushScreensActivity;
 
 import org.json.JSONObject;
 
-public class AgendaActivity extends PushScreensActivity
+public class MainActivity extends PushScreensActivity
 	implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, LoginListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_agenda);
+		setContentView(R.layout.activity_main);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
@@ -49,13 +58,23 @@ public class AgendaActivity extends PushScreensActivity
 		navigationView.setNavigationItemSelectedListener(this);
 		navigationView.setCheckedItem(R.id.agenda);
 		navigationView.getMenu().performIdentifierAction(R.id.agenda, 0);
+
+		findViewById(R.id.user_portrait).setOnClickListener(this);
+
+		_content = findViewById(android.R.id.content);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		_drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 	}
 
 	@Override
 	public void onBackPressed() {
-		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		if (drawer.isDrawerOpen(GravityCompat.START)) {
-			drawer.closeDrawer(GravityCompat.START);
+		if (_drawer.isDrawerOpen(GravityCompat.START)) {
+			_drawer.closeDrawer(GravityCompat.START);
 		}
 		else {
 			super.onBackPressed();
@@ -65,37 +84,32 @@ public class AgendaActivity extends PushScreensActivity
 	@SuppressWarnings("StatementWithEmptyBody")
 	@Override
 	public boolean onNavigationItemSelected(MenuItem item) {
-		// Handle navigation view item clicks here.
-		int id = item.getItemId();
 
-		if (id == R.id.sponsors) {
-			getSupportFragmentManager().
-				beginTransaction().
-				replace(R.id.main_fragment, SponsorsFragment.newInstance()).
-				commit();
-		}
-		else if (id == R.id.add_talk) {
-			getSupportFragmentManager().
-				beginTransaction().
-				replace(R.id.main_fragment, AddTalkFragment.newInstance()).
-				commit();
-		}
-		else {
-			getSupportFragmentManager().
-				beginTransaction().
-				replace(R.id.main_fragment, AgendaFragment.newInstance()).
-				commit();
-		}
-
-		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		drawer.closeDrawer(GravityCompat.START);
-
+		int menuId = item.getItemId();
 		item.setChecked(true);
+
+		Fragment fragment = fragmentForMenuEntry(menuId);
+		getSupportFragmentManager().
+			beginTransaction().
+			replace(R.id.main_fragment, fragment).
+			commit();
+
+		_drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		_drawer.closeDrawer(GravityCompat.START);
 
 		return true;
 	}
 
 	@Override
+	public void onClick(View v) {
+		getSupportFragmentManager().
+			beginTransaction().
+			replace(R.id.main_fragment, LoginFragment.newInstance()).
+			commit();
+
+		_drawer.closeDrawer(GravityCompat.START);
+	}
+
 	@Override
 	public void onLoginSuccess(User user) {
 
@@ -144,4 +158,18 @@ public class AgendaActivity extends PushScreensActivity
 			Snackbar.make(_content, "Couldn't login with default user", Snackbar.LENGTH_SHORT).show();
 		}
 	}
+
+	private Fragment fragmentForMenuEntry(int menuId) {
+		switch (menuId) {
+			case R.id.sponsors:
+				return SponsorsFragment.newInstance();
+			case R.id.add_talk:
+				return AddTalkFragment.newInstance();
+			default:
+				return AgendaFragment.newInstance();
+		}
+	}
+
+	private DrawerLayout _drawer;
+	private View _content;
 }

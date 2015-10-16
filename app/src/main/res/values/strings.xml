@@ -1,8 +1,15 @@
 <resources>
 	<string name="app_name">Events</string>
-	<string name="action_settings">Settings</string>
-	<string name="title_activity_agenda">AgendaActivity</string>
 
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
+	<string name="liferay_conference">Liferay Developer Conference 2015</string>
+	<string name="agenda">Agenda</string>
+	<string name="event">Event</string>
+	<string name="sponsors">Sponsors</string>
+	<string name="organizers">Organizers</string>
+	<string name="add_talk">Add Talk</string>
+	<string name="thanks_sponsors">Thanks for making the DevCon possible</string>
+
+
 </resources>

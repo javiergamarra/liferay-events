@@ -13,8 +13,8 @@
 		app:dateFieldLayoutId="@layout/ddlfield_date_material"
 		app:documentFieldLayoutId="@layout/ddlfield_document_material"
 		app:layoutId="@layout/ddl_form_material"
+		app:offlinePolicy="REMOTE_ONLY"
 		app:recordSetId="79281"
-		app:offlinePolicy="REMOTE_FIRST"
 		app:selectFieldLayoutId="@layout/ddlfield_select_material"
 		app:structureId="79279"/>
 

@@ -10,8 +10,6 @@ import com.liferay.mobile.screens.base.list.BaseListAdapter;
 import com.liferay.mobile.screens.base.list.BaseListAdapterListener;
 import com.liferay.mobile.screens.ddl.model.Record;
 
-import java.util.List;
-
 public class DDLListAdapter
 	extends BaseListAdapter<Record, DDLListAdapter.TwoTextsViewHolder> {
 
@@ -25,36 +23,30 @@ public class DDLListAdapter
 	public TwoTextsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-		View view;
-
-		if (viewType == LAYOUT_TYPE_DEFAULT) {
-			view = inflater.inflate(getLayoutId(), parent, false);
-		}
-		else {
-			view = inflater.inflate(getProgressLayoutId(), parent, false);
-		}
+		int layoutId = viewType == LAYOUT_TYPE_DEFAULT ? getLayoutId() : getProgressLayoutId();
+		View view = inflater.inflate(layoutId, parent, false);
 
 		return new TwoTextsViewHolder(view, getListener());
 	}
 
 	@Override
 	protected void fillHolder(Record entry, TwoTextsViewHolder holder) {
-		StringBuilder builder = new StringBuilder();
-
 		String titleField = entry.getServerValue("Title");
 		holder.textView.setText(titleField);
 		holder.subtitleTextView.setText(entry.getServerValue("Subtitle"));
 		holder.date.setText(entry.getServerValue("Hour"));
+
 		String room = entry.getServerValue("Room");
 		int color = "[\"value 1\"]".equals(room) ? R.color.colorPrimaryDark : R.color.colorAccent;
+
 		holder.room.setBackgroundResource(color);
 	}
 
 	public static class TwoTextsViewHolder extends BaseListAdapter.ViewHolder {
 
-		public TextView subtitleTextView;
-		public TextView date;
-		public View room;
+		public final TextView subtitleTextView;
+		public final TextView date;
+		public final View room;
 
 		public TwoTextsViewHolder(View view, BaseListAdapterListener listener) {
 			super(view, listener);

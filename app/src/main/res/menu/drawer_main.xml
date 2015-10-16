@@ -5,24 +5,24 @@
 		<item
 			android:id="@+id/agenda"
 			android:icon="@android:drawable/ic_menu_day"
-			android:title="Agenda"/>
+			android:title="@string/agenda"/>
 	</group>
 
-	<item android:title="Event">
+	<item android:title="@string/event">
 		<menu>
 			<item
 				android:id="@+id/sponsors"
 				android:icon="@android:drawable/ic_dialog_info"
-				android:title="Sponsors"/>
+				android:title="@string/sponsors"/>
 		</menu>
 	</item>
 
-	<item android:title="Organizers">
+	<item android:title="@string/organizers">
 		<menu>
 			<item
 				android:id="@+id/add_talk"
 				android:icon="@android:drawable/ic_input_add"
-				android:title="Add Talk"/>
+				android:title="@string/add_talk"/>
 		</menu>
 	</item>
 

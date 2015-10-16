@@ -1,4 +1,4 @@
-package com.liferay.events;
+package com.liferay.events.mainfragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.liferay.events.R;
 import com.liferay.mobile.screens.ddl.form.DDLFormListener;
 import com.liferay.mobile.screens.ddl.form.DDLFormScreenlet;
 import com.liferay.mobile.screens.ddl.model.DocumentField;
@@ -27,8 +28,6 @@ public class AddTalkFragment extends Fragment implements DDLFormListener {
 
 		DDLFormScreenlet ddlFormScreenlet = (DDLFormScreenlet) inflate.findViewById(R.id.ddl_form);
 		ddlFormScreenlet.setListener(this);
-
-
 
 		return inflate;
 	}
