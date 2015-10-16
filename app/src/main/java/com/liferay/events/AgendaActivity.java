@@ -19,7 +19,7 @@ import com.liferay.mobile.screens.push.PushScreensActivity;
 import org.json.JSONObject;
 
 public class AgendaActivity extends PushScreensActivity
-	implements NavigationView.OnNavigationItemSelectedListener {
+	implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, LoginListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,8 @@ public class AgendaActivity extends PushScreensActivity
 		setContentView(R.layout.activity_agenda);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
+		doDefaultLogin();
 
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +96,17 @@ public class AgendaActivity extends PushScreensActivity
 	}
 
 	@Override
+	@Override
+	public void onLoginSuccess(User user) {
+
+	}
+
+	@Override
+	public void onLoginFailure(Exception e) {
+
+	}
+
+	@Override
 	protected Session getDefaultSession() {
 		return SessionContext.createSessionFromCurrentSession();
 	}
@@ -114,4 +127,21 @@ public class AgendaActivity extends PushScreensActivity
 		return "733569701128";
 	}
 
+	private void doDefaultLogin() {
+		try {
+			String login = getString(R.string.default_user);
+			String password = getString(R.string.default_password);
+
+			LoginBasicInteractor loginBasicInteractor = new LoginBasicInteractor(0);
+			loginBasicInteractor.onScreenletAttachted(this);
+			loginBasicInteractor.setBasicAuthMethod(BasicAuthMethod.EMAIL);
+			loginBasicInteractor.setLogin(login);
+			loginBasicInteractor.setPassword(password);
+
+			loginBasicInteractor.login();
+		}
+		catch (Exception e) {
+			Snackbar.make(_content, "Couldn't login with default user", Snackbar.LENGTH_SHORT).show();
+		}
+	}
 }
