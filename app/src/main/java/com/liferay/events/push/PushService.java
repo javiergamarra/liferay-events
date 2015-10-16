@@ -1,4 +1,4 @@
-package com.liferay.events;
+package com.liferay.events.push;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -7,6 +7,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+import com.liferay.events.R;
 import com.liferay.mobile.push.bus.BusUtil;
 import com.liferay.mobile.screens.push.AbstractPushService;
 
@@ -21,7 +22,7 @@ public class PushService extends AbstractPushService {
 	@Override
 	protected void processJSONNotification(JSONObject json) throws Exception {
 		BusUtil.post(json);
-		String titleHeader =  "New notification: ";
+		String titleHeader = "New notification: ";
 		String title = titleHeader + getString(json, "body");
 		String description = getString(json, "description");
 

@@ -1,4 +1,4 @@
-package com.liferay.events;
+package com.liferay.events.push;
 
 import android.support.annotation.NonNull;
 
