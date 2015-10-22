@@ -15,6 +15,7 @@ import android.view.View;
 import com.liferay.events.R;
 import com.liferay.events.mainfragments.AddTalkFragment;
 import com.liferay.events.mainfragments.AgendaFragment;
+import com.liferay.events.mainfragments.BlogsFragment;
 import com.liferay.events.mainfragments.LoginFragment;
 import com.liferay.events.mainfragments.SponsorsFragment;
 import com.liferay.mobile.android.service.Session;
@@ -62,6 +63,7 @@ public class MainActivity extends PushScreensActivity
 		findViewById(R.id.user_portrait).setOnClickListener(this);
 
 		_content = findViewById(android.R.id.content);
+
 	}
 
 	@Override
@@ -146,6 +148,7 @@ public class MainActivity extends PushScreensActivity
 			String login = getString(R.string.default_user);
 			String password = getString(R.string.default_password);
 
+			SessionContext.createBasicSession(login, password);
 			LoginBasicInteractor loginBasicInteractor = new LoginBasicInteractor(0);
 			loginBasicInteractor.onScreenletAttachted(this);
 			loginBasicInteractor.setBasicAuthMethod(BasicAuthMethod.EMAIL);
@@ -153,6 +156,7 @@ public class MainActivity extends PushScreensActivity
 			loginBasicInteractor.setPassword(password);
 
 			loginBasicInteractor.login();
+
 		}
 		catch (Exception e) {
 			Snackbar.make(_content, "Couldn't login with default user", Snackbar.LENGTH_SHORT).show();
@@ -164,7 +168,9 @@ public class MainActivity extends PushScreensActivity
 			case R.id.sponsors:
 				return SponsorsFragment.newInstance();
 			case R.id.add_talk:
-				return AddTalkFragment.newInstance();
+				return AddTalkFragment.newInstance(null);
+			case R.id.blogs:
+				return BlogsFragment.newInstance();
 			default:
 				return AgendaFragment.newInstance();
 		}

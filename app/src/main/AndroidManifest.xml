@@ -34,7 +34,6 @@
 				<category android:name="com.liferay.mobile.push"/>
 			</intent-filter>
 		</receiver>
-
 		<receiver android:name="com.liferay.mobile.screens.cache.CacheReceiver">
 			<intent-filter>
 				<action android:name="com.liferay.mobile.screens.auth.login.success"/>
@@ -46,6 +45,11 @@
 		<service
 			android:name="com.liferay.mobile.screens.cache.CacheSyncService"
 			android:exported="false"/>
+
+		<activity
+			android:name="com.liferay.SlideActivity"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+		</activity>
 	</application>
 
 </manifest>

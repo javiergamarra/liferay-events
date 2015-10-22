@@ -31,6 +31,12 @@ dependencies {
 	compile 'com.android.support:appcompat-v7:23.0.1'
 	compile 'com.android.support:design:23.0.1'
 
-	compile 'com.liferay.mobile:liferay-screens:+'
-	compile 'com.liferay.mobile:liferay-material-viewset:+'
+	compile project(':liferay-screens')
+
+	compile project(':liferay-material-viewset')
+
+	compile 'com.estimote:sdk:0.9.1@aar'
+
+//	compile 'com.liferay.mobile:liferay-screens:+'
+//	compile 'com.liferay.mobile:liferay-material-viewset:+'
 }

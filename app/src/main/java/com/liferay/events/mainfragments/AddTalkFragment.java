@@ -16,6 +16,8 @@ import com.liferay.mobile.screens.ddl.model.Record;
 
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 /**
  * @author Javier Gamarra
  */
@@ -26,7 +28,13 @@ public class AddTalkFragment extends Fragment implements DDLFormListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View inflate = inflater.inflate(R.layout.content_add_talk, container, false);
 
+		Record record = (Record) getArguments().get("record");
 		DDLFormScreenlet ddlFormScreenlet = (DDLFormScreenlet) inflate.findViewById(R.id.ddl_form);
+		if (record != null) {
+			ddlFormScreenlet.setRecord(record);
+			record.setStructureId(Long.valueOf(getString(R.string.structure_id)));
+			record.setLocale(Locale.ENGLISH);
+		}
 		ddlFormScreenlet.setListener(this);
 
 		return inflate;
@@ -39,8 +47,12 @@ public class AddTalkFragment extends Fragment implements DDLFormListener {
 		_view = getActivity().findViewById(android.R.id.content);
 	}
 
-	public static Fragment newInstance() {
-		return new AddTalkFragment();
+	public static Fragment newInstance(Record record) {
+		AddTalkFragment addTalkFragment = new AddTalkFragment();
+		Bundle bundle = new Bundle();
+		bundle.putParcelable("record", record);
+		addTalkFragment.setArguments(bundle);
+		return addTalkFragment;
 	}
 
 	@Override

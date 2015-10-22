@@ -13,9 +13,9 @@
 		app:dateFieldLayoutId="@layout/ddlfield_date_material"
 		app:documentFieldLayoutId="@layout/ddlfield_document_material"
 		app:layoutId="@layout/ddl_form_material"
-		app:offlinePolicy="REMOTE_ONLY"
+		app:offlinePolicy="REMOTE_FIRST"
 		app:recordSetId="79281"
 		app:selectFieldLayoutId="@layout/ddlfield_select_material"
-		app:structureId="79279"/>
+		app:structureId="@string/structure_id"/>
 
 </LinearLayout>

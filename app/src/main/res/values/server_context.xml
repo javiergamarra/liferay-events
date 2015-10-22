@@ -6,4 +6,8 @@
 
 	<string name="default_user">test@liferay.com</string>
 	<string name="default_password">test</string>
+
+	<string name="structure_id">79279</string>
+	<string name="portletItemName">78201</string>
+	<string name="portlet_item_name">conf</string>
 </resources>

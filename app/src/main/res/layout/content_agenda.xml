@@ -10,11 +10,12 @@
 	tools:showIn="@layout/app_bar_main">
 
 	<com.liferay.mobile.screens.ddl.list.DDLListScreenlet
+		android:id="@+id/agenda_list"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		app:labelFields="Title,Subtitle,Date"
 		app:layoutId="@layout/ddl_list_events"
-		app:offlinePolicy="REMOTE_ONLY"
+		app:offlinePolicy="REMOTE_FIRST"
 		app:recordSetId="79281"/>
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.liferay.events.R;
 import com.liferay.mobile.screens.auth.login.LoginListener;
@@ -23,12 +24,15 @@ public class LoginFragment extends Fragment implements LoginListener {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View inflate = inflater.inflate(R.layout.content_login, container, false);
+		View view = inflater.inflate(R.layout.content_login, container, false);
 
-		LoginScreenlet loginScreenlet = (LoginScreenlet) inflate.findViewById(R.id.login);
+		LoginScreenlet loginScreenlet = (LoginScreenlet) view.findViewById(R.id.login);
 		loginScreenlet.setListener(this);
 
-		return inflate;
+		((TextView) view.findViewById(R.id.liferay_login)).setText("test@liferay.com");
+		((TextView) view.findViewById(R.id.liferay_password)).setText("test");
+
+		return view;
 	}
 
 	@Override
