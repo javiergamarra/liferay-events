@@ -60,7 +60,7 @@ public class MainActivity extends PushScreensActivity
 		navigationView.setCheckedItem(R.id.agenda);
 		navigationView.getMenu().performIdentifierAction(R.id.agenda, 0);
 
-		findViewById(R.id.user_portrait).setOnClickListener(this);
+		navigationView.getHeaderView(0).findViewById(R.id.user_portrait).setOnClickListener(this);
 
 		_content = findViewById(android.R.id.content);
 
