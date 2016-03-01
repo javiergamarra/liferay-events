@@ -31,12 +31,12 @@ public class DDLListAdapter
 
 	@Override
 	protected void fillHolder(Record entry, TwoTextsViewHolder holder) {
-		String titleField = entry.getServerValue("Title");
+		String titleField = (String) entry.getServerValue("Title");
 		holder.textView.setText(titleField);
-		holder.subtitleTextView.setText(entry.getServerValue("Subtitle"));
-		holder.date.setText(entry.getServerValue("Hour"));
+		holder.subtitleTextView.setText((String) entry.getServerValue("Subtitle"));
+		holder.date.setText((String) entry.getServerValue("Hour"));
 
-		String room = entry.getServerValue("Room");
+		String room = (String) entry.getServerValue("Room");
 		int color = "[\"value 1\"]".equals(room) ? R.color.colorPrimaryDark : R.color.colorAccent;
 
 		holder.room.setBackgroundResource(color);
