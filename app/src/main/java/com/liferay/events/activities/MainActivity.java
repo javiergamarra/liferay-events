@@ -150,7 +150,7 @@ public class MainActivity extends PushScreensActivity
 
 			SessionContext.createBasicSession(login, password);
 			LoginBasicInteractor loginBasicInteractor = new LoginBasicInteractor(0);
-			loginBasicInteractor.onScreenletAttachted(this);
+			loginBasicInteractor.onScreenletAttached(this);
 			loginBasicInteractor.setBasicAuthMethod(BasicAuthMethod.EMAIL);
 			loginBasicInteractor.setLogin(login);
 			loginBasicInteractor.setPassword(password);
