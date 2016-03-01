@@ -49,7 +49,7 @@ public class LoginFragment extends Fragment implements LoginListener {
 	@Override
 	public void onLoginSuccess(User user) {
 		UserPortraitScreenlet userPortraitScreenlet = (UserPortraitScreenlet) getActivity().findViewById(R.id.user_portrait);
-		userPortraitScreenlet.setUserId(SessionContext.getLoggedUser().getId());
+		userPortraitScreenlet.setUserId(SessionContext.getCurrentUser().getId());
 		userPortraitScreenlet.load();
 	}
 
