@@ -19,35 +19,35 @@ import org.json.JSONObject;
  */
 public class PushService extends AbstractPushService {
 
-	@Override
-	protected void processJSONNotification(JSONObject json) throws Exception {
-		BusUtil.post(json);
-		String titleHeader = "New notification: ";
-		String title = titleHeader + getString(json, "body");
-		String description = getString(json, "description");
+    @Override
+    protected void processJSONNotification(JSONObject json) throws JSONException {
+        BusUtil.post(json);
+        String titleHeader = "New notification: ";
+        String title = titleHeader + getString(json, "body");
+        String description = getString(json, "description");
 
-		createGlobalNotification(title, description);
-	}
+        createGlobalNotification(title, description);
+    }
 
-	private void createGlobalNotification(String title, String description) {
-		Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+    private void createGlobalNotification(String title, String description) {
+        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-			.setContentTitle(title)
-			.setContentText(description)
-			.setAutoCancel(true)
-			.setSound(uri)
-			.setVibrate(new long[]{2000, 1000, 2000, 1000})
-			.setSmallIcon(R.drawable.liferay_glyph);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setContentTitle(title)
+                .setContentText(description)
+                .setAutoCancel(true)
+                .setSound(uri)
+                .setVibrate(new long[]{2000, 1000, 2000, 1000})
+                .setSmallIcon(R.drawable.liferay_glyph);
 
-		Notification notification = builder.build();
-		NotificationManager notificationManager =
-			(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.notify(1, notification);
-	}
+        Notification notification = builder.build();
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, notification);
+    }
 
 
-	private String getString(final JSONObject json, final String element) throws JSONException {
-		return json.has(element) ? json.getString(element) : "";
-	}
+    private String getString(final JSONObject json, final String element) throws JSONException {
+        return json.has(element) ? json.getString(element) : "";
+    }
 }
