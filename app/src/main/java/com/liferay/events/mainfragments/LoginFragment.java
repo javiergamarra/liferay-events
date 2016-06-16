@@ -29,8 +29,8 @@ public class LoginFragment extends Fragment implements LoginListener {
 		LoginScreenlet loginScreenlet = (LoginScreenlet) view.findViewById(R.id.login);
 		loginScreenlet.setListener(this);
 
-		((TextView) view.findViewById(R.id.liferay_login)).setText("test@liferay.com");
-		((TextView) view.findViewById(R.id.liferay_password)).setText("test");
+		((TextView) view.findViewById(R.id.liferay_login)).setText(R.string.default_user);
+		((TextView) view.findViewById(R.id.liferay_password)).setText(R.string.default_password);
 
 		return view;
 	}
