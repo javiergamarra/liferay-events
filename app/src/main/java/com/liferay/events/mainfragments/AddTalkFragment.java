@@ -33,7 +33,7 @@ public class AddTalkFragment extends Fragment implements DDLFormListener {
 		if (record != null) {
 			ddlFormScreenlet.setRecord(record);
 			record.setStructureId(Long.valueOf(getString(R.string.structure_id)));
-			record.setLocale(Locale.ENGLISH);
+			record.getDDMStructure().setLocale(Locale.ENGLISH);
 		}
 		ddlFormScreenlet.setListener(this);
 
