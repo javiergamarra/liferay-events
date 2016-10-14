@@ -11,6 +11,6 @@
 		android:layout_height="match_parent"
 		app:articleId="MADRIDMETRO"
 		app:groupId="20182"
-		app:offlinePolicy="CACHE_FIRST"/>
+		app:cachePolicy="CACHE_FIRST"/>
 
 </FrameLayout>

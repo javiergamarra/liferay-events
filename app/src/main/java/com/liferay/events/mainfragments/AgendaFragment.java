@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.liferay.events.R;
+import com.liferay.mobile.screens.base.interactor.listener.CacheListener;
 import com.liferay.mobile.screens.base.list.BaseListListener;
 import com.liferay.mobile.screens.base.list.BaseListScreenlet;
 import com.liferay.mobile.screens.ddl.list.DDLListScreenlet;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * @author Javier Gamarra
  */
-public class AgendaFragment extends Fragment implements BaseListListener<Record> {
+public class AgendaFragment extends Fragment implements BaseListListener<Record>, CacheListener {
 
 	@Nullable
 	@Override
@@ -26,6 +27,7 @@ public class AgendaFragment extends Fragment implements BaseListListener<Record>
 		View view = inflater.inflate(R.layout.content_agenda, container, false);
 		DDLListScreenlet ddlListScreenlet = (DDLListScreenlet) view.findViewById(R.id.agenda_list);
 		ddlListScreenlet.setListener(this);
+		ddlListScreenlet.setCacheListener(this);
 		return view;
 	}
 
@@ -34,12 +36,12 @@ public class AgendaFragment extends Fragment implements BaseListListener<Record>
 	}
 
 	@Override
-	public void onListPageFailed(BaseListScreenlet source, int page, Exception e) {
+	public void onListPageFailed(int startRow, Exception e) {
 
 	}
 
 	@Override
-	public void onListPageReceived(BaseListScreenlet source, int page, List<Record> entries, int rowCount) {
+	public void onListPageReceived(int startRow, int endRow, List<Record> entries, int rowCount) {
 
 	}
 
@@ -64,6 +66,11 @@ public class AgendaFragment extends Fragment implements BaseListListener<Record>
 
 	@Override
 	public void storingToCache(Object object) {
+
+	}
+
+	@Override
+	public void error(Exception e, String userAction) {
 
 	}
 }

@@ -7,21 +7,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.liferay.events.R;
+import com.liferay.mobile.screens.base.interactor.listener.CacheListener;
 import com.liferay.mobile.screens.ddl.form.DDLFormListener;
 import com.liferay.mobile.screens.ddl.form.DDLFormScreenlet;
 import com.liferay.mobile.screens.ddl.model.DocumentField;
 import com.liferay.mobile.screens.ddl.model.Record;
-
-import org.json.JSONObject;
-
 import java.util.Locale;
+import java.util.Map;
+import org.json.JSONObject;
 
 /**
  * @author Javier Gamarra
  */
-public class AddTalkFragment extends Fragment implements DDLFormListener {
+public class AddTalkFragment extends Fragment implements DDLFormListener, CacheListener {
 
 	@Nullable
 	@Override
@@ -36,6 +35,7 @@ public class AddTalkFragment extends Fragment implements DDLFormListener {
 			record.getDDMStructure().setLocale(Locale.ENGLISH);
 		}
 		ddlFormScreenlet.setListener(this);
+		ddlFormScreenlet.setCacheListener(this);
 
 		return inflate;
 	}
@@ -61,7 +61,7 @@ public class AddTalkFragment extends Fragment implements DDLFormListener {
 	}
 
 	@Override
-	public void onDDLFormRecordLoaded(Record record) {
+	public void onDDLFormRecordLoaded(Record record, Map<String, Object> valuesAndAttributes) {
 
 	}
 
@@ -73,26 +73,6 @@ public class AddTalkFragment extends Fragment implements DDLFormListener {
 
 	@Override
 	public void onDDLFormRecordUpdated(Record record) {
-
-	}
-
-	@Override
-	public void onDDLFormLoadFailed(Exception e) {
-
-	}
-
-	@Override
-	public void onDDLFormRecordLoadFailed(Exception e) {
-
-	}
-
-	@Override
-	public void onDDLFormRecordAddFailed(Exception e) {
-
-	}
-
-	@Override
-	public void onDDLFormUpdateRecordFailed(Exception e) {
 
 	}
 
@@ -122,4 +102,9 @@ public class AddTalkFragment extends Fragment implements DDLFormListener {
 	}
 
 	private View _view;
+
+	@Override
+	public void error(Exception e, String userAction) {
+
+	}
 }

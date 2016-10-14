@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.liferay.events.R;
 import com.liferay.events.mainfragments.AddTalkFragment;
 import com.liferay.events.mainfragments.AgendaFragment;
@@ -24,160 +23,147 @@ import com.liferay.mobile.android.service.SessionImpl;
 import com.liferay.mobile.screens.auth.BasicAuthMethod;
 import com.liferay.mobile.screens.auth.login.LoginListener;
 import com.liferay.mobile.screens.auth.login.interactor.LoginBasicInteractor;
-import com.liferay.mobile.screens.auth.login.interactor.LoginInteractor;
-import com.liferay.mobile.screens.context.LiferayScreensContext;
-import com.liferay.mobile.screens.context.LiferayServerContext;
-import com.liferay.mobile.screens.context.SessionContext;
 import com.liferay.mobile.screens.context.User;
 import com.liferay.mobile.screens.push.PushScreensActivity;
 import com.liferay.mobile.screens.util.LiferayLogger;
-
 import org.json.JSONObject;
 
 public class MainActivity extends PushScreensActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, LoginListener {
+	implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, LoginListener {
 
-    private NavigationView navigationView;
+	private NavigationView navigationView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-        doDefaultLogin();
+		doDefaultLogin();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+					.setAction("Action", null)
+					.show();
+			}
+		});
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
+			R.string.navigation_drawer_close);
+		drawer.setDrawerListener(toggle);
+		toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.agenda);
-        navigationView.getMenu().performIdentifierAction(R.id.agenda, 0);
+		navigationView = (NavigationView) findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
+		navigationView.setCheckedItem(R.id.agenda);
+		navigationView.getMenu().performIdentifierAction(R.id.agenda, 0);
 
-        _content = findViewById(android.R.id.content);
+		_content = findViewById(android.R.id.content);
+	}
 
-    }
+	private void doDefaultLogin() {
+		LoginBasicInteractor loginInteractor = new LoginBasicInteractor();
+		loginInteractor.onScreenletAttached(this);
 
-    private void doDefaultLogin() {
-        try {
+		loginInteractor.start("test@liferay.com", "test", BasicAuthMethod.EMAIL);
+	}
 
-            LiferayScreensContext.init(this);
-            LoginBasicInteractor loginInteractor = new LoginBasicInteractor(0);
-            loginInteractor.setBasicAuthMethod(BasicAuthMethod.EMAIL);
-            loginInteractor.setLogin(getString(R.string.default_user));
-            loginInteractor.setPassword(getString(R.string.default_password));
-            loginInteractor.onScreenletAttached(this);
+	@Override
+	protected void onResume() {
+		super.onResume();
 
-            loginInteractor.login();
-        } catch (Exception e) {
-            Snackbar.make(_content, "Login failed! :(", Snackbar.LENGTH_SHORT).show();
-        }
-    }
+		_drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+	}
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+	@Override
+	public void onBackPressed() {
+		if (_drawer.isDrawerOpen(GravityCompat.START)) {
+			_drawer.closeDrawer(GravityCompat.START);
+		} else {
+			super.onBackPressed();
+		}
+	}
 
-        _drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    }
+	@SuppressWarnings("StatementWithEmptyBody")
+	@Override
+	public boolean onNavigationItemSelected(MenuItem item) {
 
-    @Override
-    public void onBackPressed() {
-        if (_drawer.isDrawerOpen(GravityCompat.START)) {
-            _drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+		int menuId = item.getItemId();
+		item.setChecked(true);
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+		Fragment fragment = fragmentForMenuEntry(menuId);
+		getSupportFragmentManager().
+			beginTransaction().
+			replace(R.id.main_fragment, fragment).
+			commit();
 
-        int menuId = item.getItemId();
-        item.setChecked(true);
+		_drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		_drawer.closeDrawer(GravityCompat.START);
 
-        Fragment fragment = fragmentForMenuEntry(menuId);
-        getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.main_fragment, fragment).
-                commit();
+		return true;
+	}
 
-        _drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        _drawer.closeDrawer(GravityCompat.START);
+	@Override
+	public void onClick(View v) {
+		getSupportFragmentManager().
+			beginTransaction().
+			replace(R.id.main_fragment, LoginFragment.newInstance()).
+			commit();
 
-        return true;
-    }
+		_drawer.closeDrawer(GravityCompat.START);
+	}
 
-    @Override
-    public void onClick(View v) {
-        getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.main_fragment, LoginFragment.newInstance()).
-                commit();
+	@Override
+	public void onLoginSuccess(User user) {
+		navigationView.getHeaderView(0).findViewById(R.id.user_portrait).setOnClickListener(this);
+	}
 
-        _drawer.closeDrawer(GravityCompat.START);
-    }
+	@Override
+	public void onLoginFailure(Exception e) {
 
-    @Override
-    public void onLoginSuccess(User user) {
-        navigationView.getHeaderView(0).findViewById(R.id.user_portrait).setOnClickListener(this);
-    }
+	}
 
-    @Override
-    public void onLoginFailure(Exception e) {
+	@Override
+	protected Session getDefaultSession() {
+		return new SessionImpl(getString(R.string.liferay_server),
+			new BasicAuthentication(getString(R.string.default_user), getString(R.string.default_password)));
+	}
 
-    }
+	@Override
+	protected void onPushNotificationReceived(JSONObject jsonObject) {
+		View view = findViewById(android.R.id.content);
+		Snackbar.make(view, jsonObject.toString(), Snackbar.LENGTH_LONG).show();
+	}
 
-    @Override
-    protected Session getDefaultSession() {
-        return new SessionImpl(getString(R.string.liferay_server), new BasicAuthentication(getString(R.string.default_user), getString(R.string.default_password)));
-    }
+	@Override
+	protected void onErrorRegisteringPush(String message, Exception e) {
+		LiferayLogger.e(message, e);
+	}
 
-    @Override
-    protected void onPushNotificationReceived(JSONObject jsonObject) {
-        View view = findViewById(android.R.id.content);
-        Snackbar.make(view, jsonObject.toString(), Snackbar.LENGTH_LONG).show();
-    }
+	@Override
+	protected String getSenderId() {
+		return getString(R.string.push_id);
+	}
 
-    @Override
-    protected void onErrorRegisteringPush(String message, Exception e) {
-        LiferayLogger.e(message, e);
-    }
+	private Fragment fragmentForMenuEntry(int menuId) {
+		switch (menuId) {
+			case R.id.sponsors:
+				return SponsorsFragment.newInstance();
+			case R.id.add_talk:
+				return AddTalkFragment.newInstance(null);
+			case R.id.blogs:
+				return BlogsFragment.newInstance();
+			default:
+				return AgendaFragment.newInstance();
+		}
+	}
 
-    @Override
-    protected String getSenderId() {
-        return getString(R.string.push_id);
-    }
-
-    private Fragment fragmentForMenuEntry(int menuId) {
-        switch (menuId) {
-            case R.id.sponsors:
-                return SponsorsFragment.newInstance();
-            case R.id.add_talk:
-                return AddTalkFragment.newInstance(null);
-            case R.id.blogs:
-                return BlogsFragment.newInstance();
-            default:
-                return AgendaFragment.newInstance();
-        }
-    }
-
-    private DrawerLayout _drawer;
-    private View _content;
+	private DrawerLayout _drawer;
+	private View _content;
 }

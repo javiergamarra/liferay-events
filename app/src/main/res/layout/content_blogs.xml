@@ -5,10 +5,10 @@
 			  android:layout_height="match_parent"
 			  android:orientation="vertical">
 
-	<com.liferay.mobile.screens.assetlist.AssetListScreenlet
+	<com.liferay.mobile.screens.asset.list.AssetListScreenlet
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		app:offlinePolicy="CACHE_FIRST"
+		app:cachePolicy="CACHE_FIRST"
 		app:portletItemName="@string/portlet_item_name"/>
 
 </LinearLayout>

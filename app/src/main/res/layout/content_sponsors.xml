@@ -10,6 +10,6 @@
 		android:layout_height="match_parent"
 		app:articleId="96898"
 		app:layoutId="@layout/webcontent_events"
-		app:offlinePolicy="CACHE_FIRST"/>
+		app:cachePolicy="CACHE_FIRST"/>
 
 </LinearLayout>
